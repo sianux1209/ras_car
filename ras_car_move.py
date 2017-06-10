@@ -92,34 +92,30 @@ def action(command):
 
 def readState():
 	# readline.py
-	f = open("./actionFlag", 'r')
+	f = open("./actionFlag", 'r+')
 	lines = f.read().splitlines()
-
+	
 	mode = lines[0]
 	action = lines[1]
-	flag = lines[2]
-
-	return mode, action, flag
-
 
 	f.close()
-
-
+	return mode, action
 
 if __name__ == "__main__":
 
 	car = Ras_car_move()
-	command = sys.argv[1]
 
 	while True:
-		mode, command, flag = readState()
+		mode, command = readState()
 
 		try :
 			if(mode == 'manual'):
-			action(command)
-
-			time.sleep(0.2)
+				action(command)
+				time.sleep(0.2)
 
 		except IOError as e:
+			sleep(0.2)
+
+		except IndexError as e:
 			sleep(0.2)
 	
