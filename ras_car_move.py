@@ -1,5 +1,6 @@
 import RPi.GPIO as gpio
 import time
+import sys
 
 class Ras_car_move:
 
@@ -50,26 +51,50 @@ class Ras_car_move:
 		gpio.output(16, False)
 		gpio.output(18, True)
 
+	def testMove(self):
+		print 'turn left'
+		self.turn_left()
+		time.sleep(1)
+		self.stop()
+
+		print 'turn right'
+		self.turn_right()
+		time.sleep(1)
+		self.stop()
+
+		print 'forward'	
+		self.forward()
+		time.sleep(1)
+		self.stop()
+
+	print 'backward'
+		self.backward()
+		time.sleep(1)
+		self.stop()
+
+
+def action(command):
+
+	if command == "forward":
+		car.forward()
+
+	elif command == "right":
+		car.turn_right()
+		
+	elif command = "backward":
+		car.backward()
+
+	elif command == "left":
+		car.turn_left()
+
+	elif command == "stop":
+		car.stop()
+
+
+
 if __name__ == "__main__":
 
 	car = Ras_car_move()
+	command = sys.argv[1]
 
-	print 'turn left'
-	car.turn_left()
-	time.sleep(1)
-	car.stop()
-
-	print 'turn right'
-	car.turn_right()
-	time.sleep(1)
-	car.stop()
-
-	print 'forward'	
-	car.forward()
-	time.sleep(1)
-	car.stop()
-
-	print 'backward'
-	car.backward()
-	time.sleep(1)
-	car.stop()
+	action(command)
