@@ -114,7 +114,12 @@ if __name__ == "__main__":
 	while True:
 		mode, command, flag = readState()
 
-		if(bool(flag) == True && mode == 'manual'):
+		try :
+			if(mode == 'manual'):
 			action(command)
 
-		time.sleep(0.1)
+			time.sleep(0.2)
+
+		except IOError as e:
+			sleep(0.2)
+	
