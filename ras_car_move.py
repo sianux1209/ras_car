@@ -67,7 +67,7 @@ class Ras_car_move:
 		time.sleep(1)
 		self.stop()
 
-	print 'backward'
+		print 'backward'
 		self.backward()
 		time.sleep(1)
 		self.stop()
@@ -81,7 +81,7 @@ def action(command):
 	elif command == "right":
 		car.turn_right()
 		
-	elif command = "backward":
+	elif command == "backward":
 		car.backward()
 
 	elif command == "left":
@@ -90,6 +90,20 @@ def action(command):
 	elif command == "stop":
 		car.stop()
 
+def readState():
+	# readline.py
+	f = open("./actionFlag", 'r')
+	lines = f.read().splitlines()
+
+	mode = lines[0]
+	action = lines[1]
+	flag = lines[2]
+
+	return mode, action, flag
+
+
+	f.close()
+
 
 
 if __name__ == "__main__":
@@ -97,4 +111,10 @@ if __name__ == "__main__":
 	car = Ras_car_move()
 	command = sys.argv[1]
 
-	action(command)
+	while True:
+		mode, command, flag = readState()
+
+		if(bool(flag) == True && mode == 'manual'):
+			action(command)
+
+		time.sleep(0.1)
